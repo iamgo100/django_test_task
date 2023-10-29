@@ -1,0 +1,14 @@
+<ul>
+{% for item in menu %}
+<li>
+    {% if item.url|slice:"1" == "/" %}
+    <a href="{{item.url}}">{{item.name}}</a>
+    {% else %}
+    <a href="{% url item.url %}">{{item.name}}</a>
+    {% endif %}
+</li>
+{% if item.url in request.path %}
+    {% include 'menu.html' with menu=item.childs %}
+{% endif %}
+{% endfor %}
+</ul>
